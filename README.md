@@ -45,7 +45,7 @@ target/release/pactrl
 
 ## 安装
 
-默认安装到当前用户的 Cargo bin 目录，并把命令安装为 `pctrl`：
+默认安装到当前用户的 Cargo bin 目录，并把命令安装为 `pactrl`：
 
 ```powershell
 make install
@@ -92,13 +92,13 @@ make help
 添加一个 PATH 条目：
 
 ```powershell
-pctrl add --name rust "C:\Users\YourName\.cargo\bin" --tips "Rust 命令行工具"
+pactrl add --name rust "C:\Users\YourName\.cargo\bin" --tips "Rust 命令行工具"
 ```
 
 查看已启用条目：
 
 ```powershell
-pctrl list
+pactrl list
 ```
 
 第一次运行时，`list` 也会显示当前系统里已经存在的 PATH 条目。这些条目的 `SOURCE` 会显示为 `external`，表示它们不是由 Path Control 创建，但可以被你看见和核对。外部条目的 ID 根据路径内容生成，因此同一个路径通常会得到同一个 ID。
@@ -106,41 +106,41 @@ pctrl list
 查看所有条目，包括已禁用的托管条目：
 
 ```powershell
-pctrl list --all
+pactrl list --all
 ```
 
 查看某个条目的详细信息：
 
 ```powershell
-pctrl show rust
-pctrl show 018f8a9b12cd
+pactrl show rust
+pactrl show 018f8a9b12cd
 ```
 
 禁用某个条目：
 
 ```powershell
-pctrl disable rust
-pctrl disable 018f8a9b12cd
+pactrl disable rust
+pactrl disable 018f8a9b12cd
 ```
 
 重新启用某个条目：
 
 ```powershell
-pctrl enable rust
-pctrl enable 018f8a9b12cd
+pactrl enable rust
+pactrl enable 018f8a9b12cd
 ```
 
 删除某个条目：
 
 ```powershell
-pctrl remove rust
-pctrl remove 018f8a9b12cd
+pactrl remove rust
+pactrl remove 018f8a9b12cd
 ```
 
 导出所有管理条目：
 
 ```powershell
-pctrl export
+pactrl export
 ```
 
 ## 命令说明
@@ -150,19 +150,19 @@ pctrl export
 添加一个 PATH 条目，并立即应用。
 
 ```powershell
-pctrl add --name <名称> <路径> --tips <说明>
+pactrl add --name <名称> <路径> --tips <说明>
 ```
 
 示例：
 
 ```powershell
-pctrl add --name node "C:\Program Files\nodejs" --tips "Node.js"
+pactrl add --name node "C:\Program Files\nodejs" --tips "Node.js"
 ```
 
 只保存但暂时不加入 PATH：
 
 ```powershell
-pctrl add --name temp-tool "D:\tools\temp" --tips "临时工具" --disabled
+pactrl add --name temp-tool "D:\tools\temp" --tips "临时工具" --disabled
 ```
 
 ### list
@@ -170,17 +170,17 @@ pctrl add --name temp-tool "D:\tools\temp" --tips "临时工具" --disabled
 列出 PATH 条目。由 Path Control 管理的条目显示为 `managed`；之前通过其它方式添加的现有 PATH 条目显示为 `external`。两类条目都会显示稳定 `ID`。
 
 ```powershell
-pctrl list
-pctrl list --all
+pactrl list
+pactrl list --all
 ```
 
 条目可以用名称或 ID 前缀查看、启用、禁用、删除，类似 Docker：
 
 ```powershell
-pctrl show <名称或ID>
-pctrl disable <名称或ID>
-pctrl enable <名称或ID>
-pctrl remove <名称或ID>
+pactrl show <名称或ID>
+pactrl disable <名称或ID>
+pactrl enable <名称或ID>
+pactrl remove <名称或ID>
 ```
 
 对于 `external` 条目，工具会在操作时立即和真实 PATH 保持一致：
@@ -195,7 +195,7 @@ pctrl remove <名称或ID>
 查看某个条目。
 
 ```powershell
-pctrl show <名称>
+pactrl show <名称>
 ```
 
 ### enable / disable
@@ -203,8 +203,8 @@ pctrl show <名称>
 启用或禁用某个条目，并立即重新应用 PATH。
 
 ```powershell
-pctrl enable <名称>
-pctrl disable <名称>
+pactrl enable <名称>
+pactrl disable <名称>
 ```
 
 ### remove
@@ -212,7 +212,7 @@ pctrl disable <名称>
 删除某个条目，并立即从 PATH 中移除。
 
 ```powershell
-pctrl remove <名称>
+pactrl remove <名称>
 ```
 
 ### apply
@@ -220,7 +220,7 @@ pctrl remove <名称>
 根据当前已管理条目重新生成 PATH。
 
 ```powershell
-pctrl apply
+pactrl apply
 ```
 
 ### export
@@ -228,7 +228,7 @@ pctrl apply
 以 JSON 格式导出条目。
 
 ```powershell
-pctrl export
+pactrl export
 ```
 
 ## 用户级和系统级 PATH
@@ -236,15 +236,15 @@ pctrl export
 默认管理用户级 PATH。可以用 `--scope` 明确指定要管理用户环境变量还是系统环境变量：
 
 ```powershell
-pctrl --scope user list --all
-pctrl --scope system list --all
+pactrl --scope user list --all
+pactrl --scope system list --all
 ```
 
 如果要管理系统级 PATH，也可以使用快捷参数 `--system`：
 
 ```powershell
-pctrl --system add --name cmake "C:\Program Files\CMake\bin" --tips "CMake"
-pctrl --system list --all
+pactrl --system add --name cmake "C:\Program Files\CMake\bin" --tips "CMake"
+pactrl --system list --all
 ```
 
 注意：Windows 系统级 PATH 写入 `HKEY_LOCAL_MACHINE`，通常需要用管理员权限运行终端。Linux/macOS 系统级配置会写入 `/etc` 下的文件，也通常需要管理员权限。
@@ -284,7 +284,7 @@ Linux 和 macOS 后端使用文件保存配置。
 /etc/profile.d/path_control.sh
 ```
 
-如果 shell 没有自动加载生成的 `pctrl.sh`，可以在自己的 shell 配置文件中手动 source。
+如果 shell 没有自动加载生成的 `path_control.sh`，可以在自己的 shell 配置文件中手动 source。
 
 例如 Bash/Zsh：
 
